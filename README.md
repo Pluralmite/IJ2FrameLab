@@ -66,6 +66,77 @@ Copy both, plus `dist/IJ2FrameLab.ini`, into `Injustice2\Binaries\Retail`.
 
 The licences of the included libraries are in their folders.
 
+## Contributions
+
+How much of IJ2 Frame Lab is original work, and how much comes from the projects it builds on. The pie chart is an **estimate** of engineering work by area, not a measurement. The [line counts](#lines-of-code) further down are measured.
+
+```mermaid
+pie showData title Share of engineering work (estimate)
+    "IJ2 Frame Lab" : 80
+    "I2Hook (ermaccer)" : 7.5
+    "Dear ImGui (Omar Cornut)" : 7
+    "MinHook (Tsuda Kageyu)" : 4.5
+    "Ultimate ASI Loader (ThirteenAG)" : 1.5
+```
+
+### How the estimate was made
+
+The mod was split into four areas, each weighted by how much of the work it represents. Each area was then divided between this project and the projects it uses.
+
+| Area | Weight | From other projects | IJ2 Frame Lab |
+|---|---|---|---|
+| Frame data engine: move segmentation, start-up / active / recovery, hit and block advantage, knockdowns, meaty and lingering moves, gaps, move identification, reading the game's move list, notation | 40% | None | 40% |
+| Game integration: finding the game's functions and data in memory | 25% | I2Hook 7.5% | 17.5% |
+| Overlay UI: frame data panel, F2 menu, hitbox / hurtbox drawing, screenshots | 20% | Dear ImGui 7% | 13% |
+| Hooking, input and loading: hooks, input buffer, menu input capture, hot reload | 15% | MinHook 4.5%, Ultimate ASI Loader 1.5% | 9% |
+| **Total** | **100%** | **20.5%** | **79.5%** |
+
+### Each project
+
+**IJ2 Frame Lab (about 80%)**
+- All frame data logic in `src/game.cpp`, and the move-list reader and notation in `src/movelist.cpp`.
+- Most of the game integration in `src/ij2.cpp`:
+  - The 8 collision signatures (hitboxes, hurtboxes, projectiles, strike tests).
+  - Every data offset the mod reads, for example character identity, move IDs and frame state, special move names, game mode, pause state, the projectile armed flag and the move-list tables.
+  - The practice-mode lock.
+- The UI built with ImGui: the frame data panel, F2 menu, advanced window, hitbox drawing with opacity control, and HDR-safe screenshots.
+- The input buffer and menu capture (XInput), the DirectInput keyboard block, and the hot-reloading loader.
+
+**I2Hook by ermaccer (about 7.5%)**
+- 11 of the mod's 19 function signatures are taken from I2Hook's `plugin/PatternSolver.cpp`. They cover:
+  - The game tick (`MKProcDispatch`).
+  - GameInfo and player info / object lookup.
+  - Object positions, bones and names.
+  - Camera position and game speed.
+- The freeze-world hook behind F5 / F6 is ported from I2Hook's `Dispatch_Hook`.
+- These are only about 20 lines, but the rest of the mod depends on them to find the players and run every frame. That is why they are weighted far above their line count: about 30% of the game integration area.
+
+**Dear ImGui by Omar Cornut (about 7%)**
+- The toolkit every window, menu, slider and box outline is drawn with, including its DirectX 11 and Win32 backends.
+- Counted as about 35% of the overlay UI area. The panel's layout, styling, game-style menu and box drawing are this project's own code built on top of it.
+
+**MinHook by Tsuda Kageyu (about 4.5%)**
+- The library that installs every hook: the game's functions, DirectX Present, XInput and the window procedure.
+- Counted as about 30% of the hooking and input area. What each hook does is this project's code.
+
+**Ultimate ASI Loader by ThirteenAG (about 1.5%)**
+- Loads `IJ2FrameLab.asi` into the game.
+- It is not included in the mod, but the mod needs it to run.
+
+### Lines of code
+
+Non-blank source lines compiled into the mod:
+
+| Project | Lines | Share |
+|---|---|---|
+| Dear ImGui | 47,635 | 84.0% |
+| IJ2 Frame Lab | 6,078 | 10.7% |
+| MinHook | 2,949 | 5.2% |
+| I2Hook (signatures and hook, inside `src/ij2.cpp`) | 20 | 0.04% |
+| Ultimate ASI Loader | Ships separately | n/a |
+
+Line count favours large general-purpose libraries and undercounts small but essential pieces like the I2Hook signatures. That is why the chart above uses the weighted estimate instead.
+
 ## Licence
 
 [MIT](LICENSE). Copyright (c) 2026 Pluralmite.
