@@ -20,6 +20,8 @@ namespace dib { void Init(); }
 namespace ij2 {
 
 // ----------------------------------------------------------------------------- signatures
+// The first 11 signatures (MKProcDispatch .. SlowGameTimeForXTicks) are from I2Hook by ermaccer
+// (https://github.com/ermaccer/I2Hook, plugin/PatternSolver.cpp). The collision / hitbox ones are ours.
 struct Sig { const char* name; const char* pat; int off; bool rip; uintptr_t addr; };
 enum {
     S_MKProcDispatch, S_Dispatch, S_FindGameInfo, S_GetInfo, S_GetObj, S_GetPos, S_CamSetPos,
@@ -939,7 +941,7 @@ static void h_ProcDispatch() {
 }
 
 static void h_Dispatch(uintptr_t ptr, int a2) {
-    // Same logic as I2Hook's "Freeze World"
+    // Ported from I2Hook's Dispatch_Hook "Freeze World" (ermaccer, plugin/Hooks.cpp)
     int v = g_frozen ? a2 : mem::ReadOr<int>(ptr + 0x18, a2);
     int cur = mem::ReadOr<int>(ptr + 0x14, v);
     if (cur == v) return;
