@@ -59,13 +59,13 @@ Copy both, plus `dist/IJ2FrameLab.ini`, into `Injustice2\Binaries\Retail`.
 
 | Credit | Project | How IJ2 Frame Lab uses it | Licence |
 |---|---|---|---|
-| [ermaccer](https://github.com/ermaccer) | [I2Hook](https://github.com/ermaccer/I2Hook) | Injustice 2 modding groundwork and reference. No I2Hook code is included. | n/a |
+| [ermaccer](https://github.com/ermaccer) | [I2Hook](https://github.com/ermaccer/I2Hook) | The function signatures for the game's core systems (game tick, GameInfo, player and object lookup, positions, bones, camera, game speed) and the freeze-world hook behind freeze / frame-step, in `src/ij2.cpp`. Used with credit. | None stated |
 | [ThirteenAG](https://github.com/ThirteenAG) | [Ultimate ASI Loader](https://github.com/ThirteenAG/Ultimate-ASI-Loader) | Loads the mod into the game. Required, but not included. | MIT |
 | [Omar Cornut](https://github.com/ocornut) | [Dear ImGui](https://github.com/ocornut/imgui) | The overlay UI: frame data panel, menus, drawing. Included in `external/imgui`. | MIT |
 | [Tsuda Kageyu](https://github.com/TsudaKageyu) | [MinHook](https://github.com/TsudaKageyu/minhook) | Hooks the game's rendering and input. Included in `external/minhook`. | BSD 2-clause |
 
-The licences of the included libraries are in their folders.
+The licences of the included libraries are in their folders. I2Hook has no stated licence: the signatures and hook logic taken from it remain ermaccer's work and are not covered by this project's MIT licence.
 
 ## Licence
 
-[MIT](LICENSE). Copyright (c) 2026 Pluralmite.
+[MIT](LICENSE). Copyright (c) 2026 Pluralmite. This covers IJ2 Frame Lab's own code, not the third-party parts listed above.
