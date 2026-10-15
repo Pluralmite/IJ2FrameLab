@@ -55,21 +55,16 @@ Copy both, plus `dist/IJ2FrameLab.ini`, into `Injustice2\Binaries\Retail`.
 | `src/screenshot.cpp` | Back-buffer PNG screenshots |
 | `src/bot.cpp` | Scripted test input and diagnostics (command file), practice mode only |
 
-## Third-party code
+## Third-party code and credits
 
-| Library | Author | Licence | Location |
+| Credit | Project | How IJ2 Frame Lab uses it | Licence |
 |---|---|---|---|
-| [Dear ImGui](https://github.com/ocornut/imgui) | Omar Cornut | MIT | `external/imgui` |
-| [MinHook](https://github.com/TsudaKageyu/minhook) | Tsuda Kageyu | BSD 2-clause | `external/minhook` |
+| [ermaccer](https://github.com/ermaccer) | [I2Hook](https://github.com/ermaccer/I2Hook) | Injustice 2 modding groundwork and reference. No I2Hook code is included. | n/a |
+| [ThirteenAG](https://github.com/ThirteenAG) | [Ultimate ASI Loader](https://github.com/ThirteenAG/Ultimate-ASI-Loader) | Loads the mod into the game. Required, but not included. | MIT |
+| [Omar Cornut](https://github.com/ocornut) | [Dear ImGui](https://github.com/ocornut/imgui) | The overlay UI: frame data panel, menus, drawing. Included in `external/imgui`. | MIT |
+| [Tsuda Kageyu](https://github.com/TsudaKageyu) | [MinHook](https://github.com/TsudaKageyu/minhook) | Hooks the game's rendering and input. Included in `external/minhook`. | BSD 2-clause |
 
-Their licences are in their folders.
-
-## Credits
-
-- [ermaccer](https://github.com/ermaccer): [I2Hook](https://github.com/ermaccer/I2Hook) and Injustice 2 modding groundwork
-- ThirteenAG: Ultimate ASI Loader
-- Omar Cornut: Dear ImGui
-- Tsuda Kageyu: MinHook
+The licences of the included libraries are in their folders.
 
 ## Licence
 
